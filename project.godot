@@ -17,6 +17,7 @@ config/icon="res://assets/icon.svg"
 
 [display]
 
+window/size/viewport_height=768
 window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
 
