@@ -2,10 +2,10 @@
 
 @export var Map: BattleMap
 @export var UILayer: TileMapLayer
-@export var Camera: Camera2D
+@export var Camera: PhantomCamera2D
 
 @onready var TILE_SIZE: Vector2i = UILayer.tile_set.tile_size
-const MOVEMENT_SPEED: float = 250.0
+const MOVEMENT_SPEED: float = 200.0
 
 func handle_input(delta: float) -> void:
 	var dir_x = Input.get_action_strength("Cursor_Right") - Input.get_action_strength("Cursor_Left")
@@ -20,6 +20,18 @@ func _ready() -> void:
 	position = position.snapped(TILE_SIZE)
 
 func _process(delta: float) -> void:
+	position = position.clamp(
+		Vector2(Camera.limit_left, Camera.limit_top),
+		Vector2(Camera.limit_right - TILE_SIZE.x, Camera.limit_bottom - TILE_SIZE.y)
+	)
+
 	UILayer.set_cell(UILayer.local_to_map(position), 1)
 	handle_input(delta)
+
+	position = position.clamp(
+		Vector2(Camera.limit_left, Camera.limit_top),
+		Vector2(Camera.limit_right - TILE_SIZE.x, Camera.limit_bottom - TILE_SIZE.y)
+	)
 	UILayer.set_cell(UILayer.local_to_map(position), 1, Vector2(3, 2))
+	
+	print(position)

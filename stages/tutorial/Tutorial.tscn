@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=4 uid="uid://cbipfqriv7b4i"]
+[gd_scene load_steps=19 format=4 uid="uid://cbipfqriv7b4i"]
 
 [ext_resource type="Script" path="res://common/map/map.gd" id="1_vg8we"]
 [ext_resource type="Texture2D" uid="uid://c6hkv008pysb5" path="res://common/map/assets/terrain.png" id="2_pa3sm"]
@@ -6,7 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://4motaeb34ytx" path="res://common/map/assets/units.png" id="4_dbh8k"]
 [ext_resource type="Texture2D" uid="uid://c86kuskv40u82" path="res://common/map/assets/ui.png" id="5_7ygea"]
 [ext_resource type="PackedScene" uid="uid://c4f1ndq22jren" path="res://entities/cursor/cursor.tscn" id="6_7mu4y"]
-[ext_resource type="Script" path="res://stages/tutorial/camera.gd" id="7_g1f6v"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="8_qa1ge"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="9_4xx5o"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="10_cs04p"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_j22wg"]
 texture = ExtResource("2_pa3sm")
@@ -275,6 +277,12 @@ texture = ExtResource("5_7ygea")
 [sub_resource type="TileSet" id="TileSet_fnvmy"]
 sources/1 = SubResource("TileSetAtlasSource_6hi4h")
 
+[sub_resource type="Resource" id="Resource_k6o5y"]
+script = ExtResource("10_cs04p")
+duration = 1.0
+transition = 0
+ease = 2
+
 [node name="Tutorial" type="Node2D" node_paths=PackedStringArray("TerrainBGLayer", "TerrainFGLayer", "BuildingLayer", "UnitLayer", "UILayer")]
 script = ExtResource("1_vg8we")
 TerrainBGLayer = NodePath("Terrain BG Layer")
@@ -303,19 +311,39 @@ tile_set = SubResource("TileSet_udf66")
 tile_map_data = PackedByteArray("AAD7/wEAAQAHAAAAAAAEAAEAAQAEAAAAAAAGAP3/AQAEAAAAAAAAAAAAAQADAAIAAAA=")
 tile_set = SubResource("TileSet_fnvmy")
 
-[node name="Cursor" parent="UI Layer" node_paths=PackedStringArray("Map", "UILayer") instance=ExtResource("6_7mu4y")]
+[node name="Cursor" parent="UI Layer" node_paths=PackedStringArray("Map", "UILayer", "Camera") instance=ExtResource("6_7mu4y")]
 self_modulate = Color(1, 1, 1, 140)
 Map = NodePath("../..")
 UILayer = NodePath("..")
+Camera = NodePath("../../PhantomCamera2D")
 
-[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("UILayer")]
-zoom = Vector2(3, 3)
-limit_left = -576
-limit_top = -384
-limit_right = 576
-limit_bottom = 384
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(4, 4)
+limit_left = -160
+limit_top = -176
+limit_right = 192
+limit_bottom = 128
 limit_smoothed = true
-position_smoothing_enabled = true
 position_smoothing_speed = 12.0
-script = ExtResource("7_g1f6v")
-UILayer = NodePath("../UI Layer")
+editor_draw_limits = true
+
+[node name="PhantomCameraHost" type="Node" parent="Camera2D"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("8_qa1ge")
+
+[node name="PhantomCamera2D" type="Node2D" parent="." node_paths=PackedStringArray("follow_target")]
+top_level = true
+script = ExtResource("9_4xx5o")
+follow_mode = 5
+follow_target = NodePath("../UI Layer/Cursor")
+zoom = Vector2(4, 4)
+snap_to_pixel = true
+tween_resource = SubResource("Resource_k6o5y")
+dead_zone_width = 0.5
+dead_zone_height = 0.5
+draw_limits = true
+limit_left = -160
+limit_top = -176
+limit_right = 192
+limit_bottom = 128
