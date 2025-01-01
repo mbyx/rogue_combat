@@ -11,7 +11,7 @@ class_name Cursor
 @export var UILayer: TileMapLayer
 @export var Camera: Camera2D
 
-@onready var TILE_SIZE: Vector2i = UILayer.tile_set.tile_size
+@onready var TILE_SIZE: Vector2 = UILayer.tile_set.tile_size
 const MOVEMENT_SPEED: float = 250.0
 const CURSOR_COORD: Vector2i = Vector2i(3, 2)
 const CURSOR_SOURCE_ID: int = 1
@@ -29,6 +29,8 @@ func handle_input(delta: float) -> void:
 			Vector2(Camera.limit_left, Camera.limit_top),
 			Vector2(Camera.limit_right - TILE_SIZE.x, Camera.limit_bottom - TILE_SIZE.y)
 		)
+		Camera._move_deadzone_with_follow_target()
+
 
 func _ready() -> void:
 	# Start out with an integer multiple of tile size to prevent bugs.

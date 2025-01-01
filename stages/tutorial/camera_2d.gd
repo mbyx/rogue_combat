@@ -2,6 +2,7 @@
 class_name FramedCamera
 
 @onready var TILE_SIZE: Vector2 = UILayer.tile_set.tile_size
+const CAMERA_SPEED: float = 200.0
 
 @export_group("Dependencies")
 @export var FollowTarget: Node2D
@@ -42,21 +43,39 @@ func _calculate_deadzone_direction(deadzone_box: Rect2, follow_position: Vector2
 	
 	return Vector2(outside_right - outside_left, outside_down - outside_up)
 
-func _move_deadzone_with_follow_target(follow_position: Vector2) -> void:
+func _move_deadzone_with_follow_target() -> void:
 	var deadzone_box = _get_deadzone_bounding_box()
 
-	if not deadzone_box.has_point(follow_position):
+	# As the follower uses a grid, it's actual position is different from it's grid position.
+	var follow_position = UILayer.map_to_local(UILayer.local_to_map(FollowTarget.position)) - TILE_SIZE / 2
+	# Move the deadzone towards the follow target until it is inside it.
+	while not deadzone_box.has_point(follow_position):
 		var direction = _calculate_deadzone_direction(deadzone_box, follow_position)
 		if direction != Vector2.ZERO:
 			var target_position = position + direction * TILE_SIZE
 			position = _clamp_camera_within_limits(target_position)
 
-func _process(delta: float) -> void:
-	# As the follower uses a grid, it's actual position is different from it's grid position.
-	var follow_position = UILayer.map_to_local(
-		UILayer.local_to_map(FollowTarget.position)) - TILE_SIZE / 2
-	_move_deadzone_with_follow_target(follow_position)
+			# Update the follow position and deadzone bounding box.
+			follow_position = UILayer.map_to_local(UILayer.local_to_map(FollowTarget.position)) - TILE_SIZE / 2
+			deadzone_box = _get_deadzone_bounding_box()
 
+func handle_input(delta: float) -> void:
+	var direction = Vector2i(
+		Input.get_action_strength("Camera_Right") - Input.get_action_strength("Camera_Left"),
+		Input.get_action_strength("Camera_Down") - Input.get_action_strength("Camera_Up")
+	)
+	var target_position = position + Vector2(direction.x * TILE_SIZE.x, direction.y * TILE_SIZE.y)
+
+	if position != target_position:
+		position = position.move_toward(target_position, delta * CAMERA_SPEED)
+		var clamper = Vector2(((limit_right - limit_left) - DEADZONE_SIZE.x), ((limit_bottom - limit_top) - DEADZONE_SIZE.y))
+		position = position.clamp(
+			Vector2(limit_left, limit_top) + clamper / zoom + DEADZONE_SIZE / 2,
+			Vector2(limit_right, limit_bottom) - clamper / zoom - DEADZONE_SIZE / 2
+		)
+
+func _process(delta: float) -> void:
+	handle_input(delta)
 
 func _clamp_camera_within_limits(target_position: Vector2) -> Vector2:
 	var clamped_x = clamp(target_position.x, limit_left, limit_right)
