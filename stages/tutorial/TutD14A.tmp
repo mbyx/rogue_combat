@@ -309,7 +309,7 @@ Map = NodePath("../..")
 UILayer = NodePath("..")
 Camera = NodePath("../../Camera2D")
 
-[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("FollowTarget", "UILayer")]
+[node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("UICursor", "UILayer")]
 zoom = Vector2(4, 4)
 limit_left = -160
 limit_top = -176
@@ -320,6 +320,6 @@ position_smoothing_enabled = true
 position_smoothing_speed = 12.0
 editor_draw_limits = true
 script = ExtResource("7_e0ffx")
-FollowTarget = NodePath("../UI Layer/Cursor")
+UICursor = NodePath("../UI Layer/Cursor")
 UILayer = NodePath("../UI Layer")
-DEADZONE_SIZE = Vector2(224, 124)
+DEADZONE_BOUNDING_BOX = Rect2i(-96, -64, 192, 128)

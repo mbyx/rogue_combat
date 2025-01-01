@@ -15,19 +15,11 @@ run/main_scene="res://stages/Main.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://assets/icon.svg"
 
-[autoload]
-
-PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
-
 [display]
 
 window/size/viewport_height=768
 window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
-
-[editor_plugins]
-
-enabled=PackedStringArray("res://addons/phantom_camera/plugin.cfg")
 
 [input]
 
