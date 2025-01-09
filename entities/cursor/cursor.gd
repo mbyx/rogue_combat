@@ -1,4 +1,4 @@
-extends Node2D
+@tool extends Node2D
 class_name Cursor
 
 ## The in-game cursor controlled by the player.
@@ -11,16 +11,16 @@ class_name Cursor
 @export var UILayer: TileMapLayer
 @export var Camera: Camera2D
 
+@export_group("Attributes")
+@export var CURSOR_DEADZONE: float = 0.25
+@export var MOVEMENT_SPEED: float = 150.0
+@export var CURSOR_COORD: Vector2i = Vector2i(3, 2)
+@export var CURSOR_SOURCE_ID: int = 1
+
 @onready var TILE_SIZE: Vector2 = UILayer.tile_set.tile_size
-const MOVEMENT_SPEED: float = 250.0
-const CURSOR_COORD: Vector2i = Vector2i(3, 2)
-const CURSOR_SOURCE_ID: int = 1
 
 func handle_input(delta: float) -> void:
-	var direction = Vector2i(
-		Input.get_action_strength("Cursor_Right") - Input.get_action_strength("Cursor_Left"),
-		Input.get_action_strength("Cursor_Down") - Input.get_action_strength("Cursor_Up")
-	)
+	var direction = Input.get_vector("Cursor_Left", "Cursor_Right", "Cursor_Up", "Cursor_Down", CURSOR_DEADZONE)
 	var target_position = position + Vector2(direction.x * TILE_SIZE.x, direction.y * TILE_SIZE.y)
 
 	if position != target_position:
@@ -30,6 +30,11 @@ func handle_input(delta: float) -> void:
 			Vector2(Camera.limit_right - TILE_SIZE.x, Camera.limit_bottom - TILE_SIZE.y)
 		)
 		Camera._move_deadzone_with_follow_target()
+
+	if Input.is_action_pressed("Move_To_Map_Center"):
+		position = Vector2.ZERO
+		Camera._move_deadzone_with_follow_target()
+		Camera.position = UILayer.map_to_local(UILayer.local_to_map(position)) - TILE_SIZE / 2
 
 
 func _ready() -> void:

@@ -13,7 +13,7 @@ const CAMERA_SPEED: float = 200.0
 	set(value):
 		DEADZONE_SIZE = value
 		queue_redraw()
-
+@export var CAMERA_DEADZONE: float = 0.25
 @export var show_bounding_box: bool = true:
 	set(value):
 		show_bounding_box = value
@@ -60,10 +60,8 @@ func _move_deadzone_with_follow_target() -> void:
 			deadzone_box = _get_deadzone_bounding_box()
 
 func handle_input(delta: float) -> void:
-	var direction = Vector2i(
-		Input.get_action_strength("Camera_Right") - Input.get_action_strength("Camera_Left"),
-		Input.get_action_strength("Camera_Down") - Input.get_action_strength("Camera_Up")
-	)
+	var direction = Input.get_vector("Camera_Left", "Camera_Right", "Camera_Up", "Camera_Down", CAMERA_DEADZONE)
+
 	var target_position = position + Vector2(direction.x * TILE_SIZE.x, direction.y * TILE_SIZE.y)
 
 	if position != target_position:
@@ -73,6 +71,9 @@ func handle_input(delta: float) -> void:
 			Vector2(limit_left, limit_top) + clamper / zoom + DEADZONE_SIZE / 2,
 			Vector2(limit_right, limit_bottom) - clamper / zoom - DEADZONE_SIZE / 2
 		)
+
+	if Input.is_action_pressed("Move_To_Cursor_Center"):
+		position = UILayer.map_to_local(UILayer.local_to_map(FollowTarget.position)) - TILE_SIZE / 2
 
 func _process(delta: float) -> void:
 	handle_input(delta)

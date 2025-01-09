@@ -299,8 +299,12 @@ tile_set = SubResource("TileSet_aoaox")
 tile_map_data = PackedByteArray("AAAIAP//AAALAAMAAAAIAAAAAAALAAMAAAAGAP3/AAALAAMAAAAFAPz/AAALAAMAAAAEAAEAAAAMAAMAAAACAPr/AAAMAAMAAAD+//n/AAALAAAAAAD8//v/AAAMAAAAAAD7/wAAAAALAAAAAAD7/wEAAAALAAAAAAA=")
 tile_set = SubResource("TileSet_udf66")
 
+[node name="Attribute Layer" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAD7/wEAAQAHAAAAAAAEAAEAAQAEAAAAAAAGAP3/AQAEAAAAAAA=")
+tile_set = SubResource("TileSet_fnvmy")
+
 [node name="UI Layer" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAD7/wEAAQAHAAAAAAAEAAEAAQAEAAAAAAAGAP3/AQAEAAAAAAAAAAAAAQADAAIAAAA=")
+tile_map_data = PackedByteArray("AAAAAAAAAQADAAIAAAA=")
 tile_set = SubResource("TileSet_fnvmy")
 
 [node name="Cursor" parent="UI Layer" node_paths=PackedStringArray("Map", "UILayer", "Camera") instance=ExtResource("6_7mu4y")]
@@ -323,3 +327,4 @@ script = ExtResource("7_e0ffx")
 FollowTarget = NodePath("../UI Layer/Cursor")
 UILayer = NodePath("../UI Layer")
 DEADZONE_SIZE = Vector2(224, 128)
+CAMERA_DEADZONE = null
