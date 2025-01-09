@@ -62,6 +62,7 @@ func _move_deadzone_with_follow_target() -> void:
 func handle_input(delta: float) -> void:
 	var direction = Input.get_vector("Camera_Left", "Camera_Right", "Camera_Up", "Camera_Down", CAMERA_DEADZONE)
 
+	# TODO: Make this snap to grid as well.
 	var target_position = position + Vector2(direction.x * TILE_SIZE.x, direction.y * TILE_SIZE.y)
 
 	if position != target_position:

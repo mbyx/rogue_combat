@@ -98,6 +98,7 @@ texture = ExtResource("2_pa3sm")
 4:9/0 = 0
 4:9/0/custom_data_0 = 2
 5:0/0 = 0
+5:0/0/custom_data_0 = 3
 
 [sub_resource type="TileSet" id="TileSet_lpl1b"]
 physics_layer_0/collision_layer = 1
@@ -327,4 +328,3 @@ script = ExtResource("7_e0ffx")
 FollowTarget = NodePath("../UI Layer/Cursor")
 UILayer = NodePath("../UI Layer")
 DEADZONE_SIZE = Vector2(224, 128)
-CAMERA_DEADZONE = null

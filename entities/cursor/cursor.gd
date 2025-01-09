@@ -43,6 +43,9 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	# Unset the cell at that position before calculating new position and resetting it.
+	# TODO: Instead of having a UI Layer simply make the UI part of the cell element.
+	# maybe via scene collections.
 	UILayer.set_cell(UILayer.local_to_map(position), CURSOR_SOURCE_ID)
 	handle_input(delta)
 	UILayer.set_cell(UILayer.local_to_map(position), CURSOR_SOURCE_ID, CURSOR_COORD)
+	print(Map.get_terrain_type_at(position))

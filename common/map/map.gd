@@ -23,13 +23,18 @@ class_name BattleMap
 # NOTE: Terrains that can only be specified via the Foreground must always
 # have a larger integer value than the largest terrain type specified via
 # the Background.
+# TODO: Add buildings.
 enum TerrainType {
 	PLAINS    = 0,
 	WATER     = 1,
 	ROAD      = 2,
-	MOUNTAINS = 3,
+	MOUNTAIN  = 3,
 	FOREST    = 4
 }
+
+const VALUE_TO_TERRAIN: Dictionary = { 0 : TerrainType.PLAINS, 1 : TerrainType.WATER,
+									   2 : TerrainType.ROAD, 3 : TerrainType.MOUNTAIN,
+									   4 : TerrainType.FOREST }
 
 @export_group("Attributes")
 ## A list of resources whose indices correspond to the terrain type.
@@ -39,16 +44,23 @@ enum TerrainType {
 ##
 ## The method will check the terrain type of both the foreground and background
 ## layers, but return only one, prioritising the foreground layer.
-func get_terrain_type_at(coords: Vector2i) -> TerrainType:
-	var bg_type: int = TerrainBGLayer \
-		.get_cell_tile_data(coords) \
-		.get_custom_data("Terrain Type")
-	var fg_type: int = TerrainFGLayer \
-		.get_cell_tile_data(coords) \
-		.get_custom_data("Terrain Type")
+## NOTE: This method takes the position as the argument.
+func get_terrain_type_at(pos: Vector2) -> TerrainType:
+	var bg_type: int = -1
+	var fg_type: int = -1
+
+	var bg_data: TileData = TerrainBGLayer \
+		.get_cell_tile_data(TerrainBGLayer.local_to_map(pos))
+	if bg_data:
+		bg_type = bg_data.get_custom_data("Terrain Type")
+
+	var fg_data: TileData = TerrainFGLayer \
+		.get_cell_tile_data(TerrainFGLayer.local_to_map(pos))
+	if fg_data:
+		bg_type = fg_data.get_custom_data("Terrain Type")
 
 	# Assuming the foreground terrains start after the background terrains.
-	return TerrainType.get(max(bg_type, fg_type))
+	return VALUE_TO_TERRAIN[max(bg_type, fg_type)]
 
 ## Get the terrain data of the tile at that position.
 ##
