@@ -1,0 +1,244 @@
+[gd_scene load_steps=10 format=3 uid="uid://vq51v15m3b0e"]
+
+[ext_resource type="Texture2D" uid="uid://c86kuskv40u82" path="res://common/map/assets/ui.png" id="1_21fm1"]
+[ext_resource type="Texture2D" uid="uid://4motaeb34ytx" path="res://common/map/assets/units.png" id="1_dvavm"]
+[ext_resource type="Theme" uid="uid://cs0yoox8whwlm" path="res://assets/theme.tres" id="1_i3k3u"]
+[ext_resource type="Texture2D" uid="uid://c6hkv008pysb5" path="res://common/map/assets/terrain.png" id="1_nmx23"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0kv3b"]
+atlas = ExtResource("1_nmx23")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dvkp8"]
+atlas = ExtResource("1_dvavm")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nojbf"]
+atlas = ExtResource("1_21fm1")
+region = Rect2(240, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_db357"]
+atlas = ExtResource("1_21fm1")
+region = Rect2(176, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_or2ax"]
+atlas = ExtResource("1_21fm1")
+region = Rect2(192, 0, 16, 16)
+
+[node name="InfoBlock" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -609.0
+offset_bottom = -480.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_i3k3u")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.235294, 0.235294, 0.235294, 0.878431)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Terrain Side" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Terrain Name" type="RichTextLabel" parent="HBoxContainer/Terrain Side"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[center]Plains[/center]"
+fit_content = true
+
+[node name="Padded Texture" type="HBoxContainer" parent="HBoxContainer/Terrain Side"]
+layout_mode = 2
+
+[node name="PaddingStart" type="Control" parent="HBoxContainer/Terrain Side/Padded Texture"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Terrain Texture" type="TextureRect" parent="HBoxContainer/Terrain Side/Padded Texture"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = SubResource("AtlasTexture_0kv3b")
+
+[node name="PaddingEnd" type="Control" parent="HBoxContainer/Terrain Side/Padded Texture"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Defence" type="RichTextLabel" parent="HBoxContainer/Terrain Side"]
+layout_mode = 2
+size_flags_vertical = 3
+bbcode_enabled = true
+text = "[center]Def = 3[/center]"
+
+[node name="Unit Side" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Unit Name" type="RichTextLabel" parent="HBoxContainer/Unit Side"]
+layout_mode = 2
+bbcode_enabled = true
+text = "[center]Inftry[/center]"
+fit_content = true
+
+[node name="Padded Texture" type="HBoxContainer" parent="HBoxContainer/Unit Side"]
+layout_mode = 2
+
+[node name="PaddingStart" type="Control" parent="HBoxContainer/Unit Side/Padded Texture"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Unit Texture" type="TextureRect" parent="HBoxContainer/Unit Side/Padded Texture"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_dvkp8")
+
+[node name="PaddingEnd" type="Control" parent="HBoxContainer/Unit Side/Padded Texture"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Unit Attributes" type="VBoxContainer" parent="HBoxContainer/Unit Side"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Health" type="HBoxContainer" parent="HBoxContainer/Unit Side/Unit Attributes"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PaddingStart" type="Control" parent="HBoxContainer/Unit Side/Unit Attributes/Health"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Padded Texture" type="VBoxContainer" parent="HBoxContainer/Unit Side/Unit Attributes/Health"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Health Texture" type="TextureRect" parent="HBoxContainer/Unit Side/Unit Attributes/Health/Padded Texture"]
+layout_mode = 2
+size_flags_vertical = 3
+texture = SubResource("AtlasTexture_nojbf")
+
+[node name="Padded Text" type="VBoxContainer" parent="HBoxContainer/Unit Side/Unit Attributes/Health"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PaddingStart" type="Control" parent="HBoxContainer/Unit Side/Unit Attributes/Health/Padded Text"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Health" type="RichTextLabel" parent="HBoxContainer/Unit Side/Unit Attributes/Health/Padded Text"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "100"
+fit_content = true
+
+[node name="PaddingEnd" type="Control" parent="HBoxContainer/Unit Side/Unit Attributes/Health/Padded Text"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PaddingEnd" type="Control" parent="HBoxContainer/Unit Side/Unit Attributes/Health"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Ammo" type="HBoxContainer" parent="HBoxContainer/Unit Side/Unit Attributes"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PaddingStart" type="Control" parent="HBoxContainer/Unit Side/Unit Attributes/Ammo"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Padded Texture" type="VBoxContainer" parent="HBoxContainer/Unit Side/Unit Attributes/Ammo"]
+layout_mode = 2
+
+[node name="PaddingStart" type="Control" parent="HBoxContainer/Unit Side/Unit Attributes/Ammo/Padded Texture"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Ammo Texture" type="TextureRect" parent="HBoxContainer/Unit Side/Unit Attributes/Ammo/Padded Texture"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_db357")
+
+[node name="PaddingEnd" type="Control" parent="HBoxContainer/Unit Side/Unit Attributes/Ammo/Padded Texture"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Padded Text" type="VBoxContainer" parent="HBoxContainer/Unit Side/Unit Attributes/Ammo"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PaddingStart" type="Control" parent="HBoxContainer/Unit Side/Unit Attributes/Ammo/Padded Text"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Ammo" type="RichTextLabel" parent="HBoxContainer/Unit Side/Unit Attributes/Ammo/Padded Text"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "100"
+fit_content = true
+
+[node name="PaddingEnd" type="Control" parent="HBoxContainer/Unit Side/Unit Attributes/Ammo/Padded Text"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PaddingEnd" type="Control" parent="HBoxContainer/Unit Side/Unit Attributes/Ammo"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Supplies" type="HBoxContainer" parent="HBoxContainer/Unit Side/Unit Attributes"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PaddingStart" type="Control" parent="HBoxContainer/Unit Side/Unit Attributes/Supplies"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Padded Texture" type="VBoxContainer" parent="HBoxContainer/Unit Side/Unit Attributes/Supplies"]
+layout_mode = 2
+
+[node name="PaddingStart" type="Control" parent="HBoxContainer/Unit Side/Unit Attributes/Supplies/Padded Texture"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Supplies Texture" type="TextureRect" parent="HBoxContainer/Unit Side/Unit Attributes/Supplies/Padded Texture"]
+layout_mode = 2
+texture = SubResource("AtlasTexture_or2ax")
+
+[node name="PaddingEnd" type="Control" parent="HBoxContainer/Unit Side/Unit Attributes/Supplies/Padded Texture"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Padded Text" type="VBoxContainer" parent="HBoxContainer/Unit Side/Unit Attributes/Supplies"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PaddingStart" type="Control" parent="HBoxContainer/Unit Side/Unit Attributes/Supplies/Padded Text"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Supplies" type="RichTextLabel" parent="HBoxContainer/Unit Side/Unit Attributes/Supplies/Padded Text"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "100"
+fit_content = true
+
+[node name="PaddingEnd" type="Control" parent="HBoxContainer/Unit Side/Unit Attributes/Supplies/Padded Text"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PaddingEnd" type="Control" parent="HBoxContainer/Unit Side/Unit Attributes/Supplies"]
+layout_mode = 2
+size_flags_horizontal = 3

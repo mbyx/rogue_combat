@@ -1,0 +1,7 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://cs0yoox8whwlm"]
+
+[ext_resource type="FontFile" uid="uid://cn4oh5c8gvqdw" path="res://assets/font/PixelifySans-Regular.ttf" id="1_4sgpm"]
+
+[resource]
+default_font = ExtResource("1_4sgpm")
+default_font_size = 32

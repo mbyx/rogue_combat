@@ -1,20 +1,14 @@
-[gd_scene load_steps=25 format=4 uid="uid://cbipfqriv7b4i"]
+[gd_scene load_steps=19 format=4 uid="uid://cbipfqriv7b4i"]
 
 [ext_resource type="Script" path="res://common/map/map.gd" id="1_vg8we"]
 [ext_resource type="Resource" uid="uid://bou534q7whx0" path="res://resources/terrain/plains.tres" id="2_jf8sg"]
 [ext_resource type="Texture2D" uid="uid://c6hkv008pysb5" path="res://common/map/assets/terrain.png" id="2_pa3sm"]
 [ext_resource type="Texture2D" uid="uid://bhk0g32t4b2a1" path="res://assets/kenny_tiny_battle_tilemap.png" id="2_rkkm1"]
-[ext_resource type="Resource" uid="uid://b4p8kti0ck1qc" path="res://resources/terrain/water.tres" id="3_3iigh"]
 [ext_resource type="Texture2D" uid="uid://cpxv028ggylsv" path="res://common/map/assets/objects.png" id="3_qf0a6"]
-[ext_resource type="Resource" uid="uid://kwkeq8w3d7pm" path="res://resources/terrain/road.tres" id="4_6vjvr"]
 [ext_resource type="Texture2D" uid="uid://4motaeb34ytx" path="res://common/map/assets/units.png" id="4_dbh8k"]
-[ext_resource type="Resource" uid="uid://c0q74uxwrsr8v" path="res://resources/terrain/mountain.tres" id="5_4ocxb"]
 [ext_resource type="Texture2D" uid="uid://c86kuskv40u82" path="res://common/map/assets/ui.png" id="5_7ygea"]
 [ext_resource type="PackedScene" uid="uid://c4f1ndq22jren" path="res://entities/cursor/cursor.tscn" id="6_7mu4y"]
-[ext_resource type="Resource" uid="uid://dlvq05242bxye" path="res://resources/terrain/forest.tres" id="6_rnrbv"]
-[ext_resource type="Resource" uid="uid://drsmkpolc7ttl" path="res://resources/terrain/building.tres" id="7_2bjou"]
 [ext_resource type="Script" path="res://stages/tutorial/camera_2d.gd" id="7_e0ffx"]
-[ext_resource type="PackedScene" uid="uid://vq51v15m3b0e" path="res://entities/info_block/info_block.tscn" id="10_g5u88"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_istye"]
 texture = ExtResource("2_rkkm1")
@@ -665,7 +659,6 @@ texture = ExtResource("5_7ygea")
 2:3/0 = 0
 3:3/0 = 0
 13:9/0 = 0
-4:1/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_fnvmy"]
 sources/1 = SubResource("TileSetAtlasSource_6hi4h")
@@ -677,7 +670,7 @@ TerrainFGLayer = NodePath("Terrain FG Layer")
 BuildingLayer = NodePath("Building Layer")
 UnitLayer = NodePath("Unit Layer")
 UILayer = NodePath("UI Layer")
-terrain_data = Array[Resource]([ExtResource("2_jf8sg"), ExtResource("3_3iigh"), ExtResource("4_6vjvr"), ExtResource("5_4ocxb"), ExtResource("6_rnrbv"), ExtResource("7_2bjou")])
+terrain_data = Array[Resource]([ExtResource("2_jf8sg"), null, null, null, null, null])
 unit_data = Array[Resource]([null, null, null, null, null, null, null, null, null, null, null, null, null])
 
 [node name="Terrain BG Layer" type="TileMapLayer" parent="."]
@@ -703,20 +696,10 @@ tile_set = SubResource("TileSet_fnvmy")
 [node name="UI Layer" type="TileMapLayer" parent="."]
 tile_set = SubResource("TileSet_fnvmy")
 
-[node name="Cursor" parent="UI Layer" node_paths=PackedStringArray("Map", "UILayer", "UnitLayer", "Camera") instance=ExtResource("6_7mu4y")]
+[node name="Cursor" parent="UI Layer" node_paths=PackedStringArray("Map", "UILayer", "Camera") instance=ExtResource("6_7mu4y")]
 Map = NodePath("../..")
 UILayer = NodePath("..")
-UnitLayer = NodePath("../../Unit Layer")
 Camera = NodePath("../../FramedCamera")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-visible = false
-
-[node name="InfoBlock" parent="CanvasLayer" instance=ExtResource("10_g5u88")]
-offset_left = 36.0
-offset_top = 448.0
-offset_right = -637.0
-offset_bottom = -51.0
 
 [node name="FramedCamera" type="Camera2D" parent="." node_paths=PackedStringArray("FollowTarget", "UILayer")]
 zoom = Vector2(4, 4)

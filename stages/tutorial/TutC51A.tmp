@@ -1,20 +1,15 @@
-[gd_scene load_steps=25 format=4 uid="uid://cbipfqriv7b4i"]
+[gd_scene load_steps=19 format=4 uid="uid://cbipfqriv7b4i"]
 
 [ext_resource type="Script" path="res://common/map/map.gd" id="1_vg8we"]
-[ext_resource type="Resource" uid="uid://bou534q7whx0" path="res://resources/terrain/plains.tres" id="2_jf8sg"]
 [ext_resource type="Texture2D" uid="uid://c6hkv008pysb5" path="res://common/map/assets/terrain.png" id="2_pa3sm"]
 [ext_resource type="Texture2D" uid="uid://bhk0g32t4b2a1" path="res://assets/kenny_tiny_battle_tilemap.png" id="2_rkkm1"]
-[ext_resource type="Resource" uid="uid://b4p8kti0ck1qc" path="res://resources/terrain/water.tres" id="3_3iigh"]
 [ext_resource type="Texture2D" uid="uid://cpxv028ggylsv" path="res://common/map/assets/objects.png" id="3_qf0a6"]
-[ext_resource type="Resource" uid="uid://kwkeq8w3d7pm" path="res://resources/terrain/road.tres" id="4_6vjvr"]
 [ext_resource type="Texture2D" uid="uid://4motaeb34ytx" path="res://common/map/assets/units.png" id="4_dbh8k"]
-[ext_resource type="Resource" uid="uid://c0q74uxwrsr8v" path="res://resources/terrain/mountain.tres" id="5_4ocxb"]
 [ext_resource type="Texture2D" uid="uid://c86kuskv40u82" path="res://common/map/assets/ui.png" id="5_7ygea"]
 [ext_resource type="PackedScene" uid="uid://c4f1ndq22jren" path="res://entities/cursor/cursor.tscn" id="6_7mu4y"]
-[ext_resource type="Resource" uid="uid://dlvq05242bxye" path="res://resources/terrain/forest.tres" id="6_rnrbv"]
-[ext_resource type="Resource" uid="uid://drsmkpolc7ttl" path="res://resources/terrain/building.tres" id="7_2bjou"]
 [ext_resource type="Script" path="res://stages/tutorial/camera_2d.gd" id="7_e0ffx"]
-[ext_resource type="PackedScene" uid="uid://vq51v15m3b0e" path="res://entities/info_block/info_block.tscn" id="10_g5u88"]
+
+[sub_resource type="Resource" id="Resource_41y2e"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_istye"]
 texture = ExtResource("2_rkkm1")
@@ -442,194 +437,74 @@ sources/0 = SubResource("TileSetAtlasSource_jtum2")
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l1jwx"]
 texture = ExtResource("4_dbh8k")
 0:0/0 = 0
-0:0/0/custom_data_0 = 12
 1:0/0 = 0
-1:0/0/custom_data_0 = 11
 2:0/0 = 0
-2:0/0/custom_data_0 = 10
 3:0/0 = 0
-3:0/0/custom_data_0 = 9
 4:0/0 = 0
-4:0/0/custom_data_0 = 8
 5:0/0 = 0
-5:0/0/custom_data_0 = 7
 6:0/0 = 0
-6:0/0/custom_data_0 = 6
 7:0/0 = 0
-7:0/0/custom_data_0 = 5
 8:0/0 = 0
-8:0/0/custom_data_0 = 4
 9:0/0 = 0
-9:0/0/custom_data_0 = 3
 10:0/0 = 0
-10:0/0/custom_data_0 = 2
 11:0/0 = 0
 12:0/0 = 0
-12:0/0/custom_data_0 = 1
 0:1/0 = 0
-0:1/0/custom_data_0 = 12
-0:1/0/custom_data_1 = 1
 1:1/0 = 0
-1:1/0/custom_data_0 = 11
-1:1/0/custom_data_1 = 1
 2:1/0 = 0
-2:1/0/custom_data_0 = 10
-2:1/0/custom_data_1 = 1
 3:1/0 = 0
-3:1/0/custom_data_0 = 9
-3:1/0/custom_data_1 = 1
 4:1/0 = 0
-4:1/0/custom_data_0 = 8
-4:1/0/custom_data_1 = 1
 5:1/0 = 0
-5:1/0/custom_data_0 = 7
-5:1/0/custom_data_1 = 1
 6:1/0 = 0
-6:1/0/custom_data_0 = 6
-6:1/0/custom_data_1 = 1
 7:1/0 = 0
-7:1/0/custom_data_0 = 5
-7:1/0/custom_data_1 = 1
 8:1/0 = 0
-8:1/0/custom_data_0 = 4
-8:1/0/custom_data_1 = 1
 9:1/0 = 0
-9:1/0/custom_data_0 = 3
-9:1/0/custom_data_1 = 1
 10:1/0 = 0
-10:1/0/custom_data_0 = 2
-10:1/0/custom_data_1 = 1
 11:1/0 = 0
-11:1/0/custom_data_1 = 1
 12:1/0 = 0
-12:1/0/custom_data_0 = 1
-12:1/0/custom_data_1 = 1
 0:2/0 = 0
-0:2/0/custom_data_0 = 12
-0:2/0/custom_data_1 = 2
 1:2/0 = 0
-1:2/0/custom_data_0 = 11
-1:2/0/custom_data_1 = 2
 2:2/0 = 0
-2:2/0/custom_data_0 = 10
-2:2/0/custom_data_1 = 2
 3:2/0 = 0
-3:2/0/custom_data_0 = 9
-3:2/0/custom_data_1 = 2
 4:2/0 = 0
-4:2/0/custom_data_0 = 8
-4:2/0/custom_data_1 = 2
 5:2/0 = 0
-5:2/0/custom_data_0 = 7
-5:2/0/custom_data_1 = 2
 6:2/0 = 0
-6:2/0/custom_data_0 = 6
-6:2/0/custom_data_1 = 2
 7:2/0 = 0
-7:2/0/custom_data_0 = 5
-7:2/0/custom_data_1 = 2
 8:2/0 = 0
-8:2/0/custom_data_0 = 4
-8:2/0/custom_data_1 = 2
 9:2/0 = 0
-9:2/0/custom_data_0 = 3
-9:2/0/custom_data_1 = 2
 10:2/0 = 0
-10:2/0/custom_data_0 = 2
-10:2/0/custom_data_1 = 2
 11:2/0 = 0
-11:2/0/custom_data_1 = 2
 12:2/0 = 0
-12:2/0/custom_data_0 = 1
-12:2/0/custom_data_1 = 2
 0:3/0 = 0
-0:3/0/custom_data_0 = 12
-0:3/0/custom_data_1 = 3
 1:3/0 = 0
-1:3/0/custom_data_0 = 11
-1:3/0/custom_data_1 = 3
 2:3/0 = 0
-2:3/0/custom_data_0 = 10
-2:3/0/custom_data_1 = 3
 3:3/0 = 0
-3:3/0/custom_data_0 = 9
-3:3/0/custom_data_1 = 3
 4:3/0 = 0
-4:3/0/custom_data_0 = 8
-4:3/0/custom_data_1 = 3
 5:3/0 = 0
-5:3/0/custom_data_0 = 7
-5:3/0/custom_data_1 = 3
 6:3/0 = 0
-6:3/0/custom_data_0 = 6
-6:3/0/custom_data_1 = 3
 7:3/0 = 0
-7:3/0/custom_data_0 = 5
-7:3/0/custom_data_1 = 3
 8:3/0 = 0
-8:3/0/custom_data_0 = 4
-8:3/0/custom_data_1 = 3
 9:3/0 = 0
-9:3/0/custom_data_0 = 3
-9:3/0/custom_data_1 = 3
 10:3/0 = 0
-10:3/0/custom_data_0 = 2
-10:3/0/custom_data_1 = 3
 11:3/0 = 0
-11:3/0/custom_data_1 = 3
 12:3/0 = 0
-12:3/0/custom_data_0 = 1
-12:3/0/custom_data_1 = 3
 0:4/0 = 0
-0:4/0/custom_data_0 = 12
-0:4/0/custom_data_1 = 4
 1:4/0 = 0
-1:4/0/custom_data_0 = 11
-1:4/0/custom_data_1 = 4
 2:4/0 = 0
-2:4/0/custom_data_0 = 10
-2:4/0/custom_data_1 = 4
 3:4/0 = 0
-3:4/0/custom_data_0 = 9
-3:4/0/custom_data_1 = 4
 4:4/0 = 0
-4:4/0/custom_data_0 = 8
-4:4/0/custom_data_1 = 4
 5:4/0 = 0
-5:4/0/custom_data_0 = 7
-5:4/0/custom_data_1 = 4
 6:4/0 = 0
-6:4/0/custom_data_0 = 6
-6:4/0/custom_data_1 = 4
 7:4/0 = 0
-7:4/0/custom_data_0 = 5
-7:4/0/custom_data_1 = 4
 8:4/0 = 0
-8:4/0/custom_data_0 = 4
-8:4/0/custom_data_1 = 4
 9:4/0 = 0
-9:4/0/custom_data_0 = 3
-9:4/0/custom_data_1 = 4
 10:4/0 = 0
-10:4/0/custom_data_0 = 2
-10:4/0/custom_data_1 = 4
 11:4/0 = 0
-11:4/0/custom_data_1 = 4
 12:4/0 = 0
-12:4/0/custom_data_0 = 1
-12:4/0/custom_data_1 = 4
 0:5/0 = 0
-0:5/0/custom_data_0 = -1
-0:5/0/custom_data_1 = -1
 1:5/0 = 0
-1:5/0/custom_data_0 = -1
-1:5/0/custom_data_1 = -1
 
 [sub_resource type="TileSet" id="TileSet_udf66"]
-custom_data_layer_0/name = "Unit Type"
-custom_data_layer_0/type = 2
-custom_data_layer_1/name = "Flag Color"
-custom_data_layer_1/type = 2
 sources/0 = SubResource("TileSetAtlasSource_l1jwx")
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6hi4h"]
@@ -665,7 +540,6 @@ texture = ExtResource("5_7ygea")
 2:3/0 = 0
 3:3/0 = 0
 13:9/0 = 0
-4:1/0 = 0
 
 [sub_resource type="TileSet" id="TileSet_fnvmy"]
 sources/1 = SubResource("TileSetAtlasSource_6hi4h")
@@ -677,8 +551,7 @@ TerrainFGLayer = NodePath("Terrain FG Layer")
 BuildingLayer = NodePath("Building Layer")
 UnitLayer = NodePath("Unit Layer")
 UILayer = NodePath("UI Layer")
-terrain_data = Array[Resource]([ExtResource("2_jf8sg"), ExtResource("3_3iigh"), ExtResource("4_6vjvr"), ExtResource("5_4ocxb"), ExtResource("6_rnrbv"), ExtResource("7_2bjou")])
-unit_data = Array[Resource]([null, null, null, null, null, null, null, null, null, null, null, null, null])
+terrain_data = Array[Resource]([SubResource("Resource_41y2e"), null, null, null, null, null])
 
 [node name="Terrain BG Layer" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAD9/wQAAQAAAAAAAAD9/wMAAQAAAAAAAAD9/wIAAQABAAAAAAD9/wEAAQABAAAAAAD+/wEAAQAAAAAAAAD//wEAAQAAAAAAAAAAAAEAAQAAAAAAAAADAAIAAQACAAMAAAADAAMAAQAAAAAAAAADAAQAAQAAAAAAAAACAAQAAQACAAAAAAABAAQAAQABAAAAAAAAAAQAAQACAAAAAAD//wQAAQAAAAAAAAD//wMAAQAAAAAAAAD+/wMAAQAAAAAAAAD+/wIAAQACAAAAAAD//wIAAQAAAAAAAAD+/wQAAQAAAAAAAAABAAMAAQACAAAAAAAAAAMAAQAAAAAAAAACAAMAAQABAAAAAAACAAIAAQABAAMAAAAAAAIAAQAAAAAAAAADAAAAAQACAAEAAAADAP//AQAAAAAAAAADAP7/AQAAAAAAAAADAP3/AQABAAAAAAACAP3/AQACAAAAAAACAPz/AQABAAAAAAABAPz/AQACAAAAAAAAAPz/AQACAAEAAAD///z/AQABAAEAAAD///3/AQABAAIAAAD+//3/AQABAAIAAAD9//3/AQAAAAIAAAD8//3/AQAAAAAAAAD8//7/AQACAAAAAAD8////AQAAAAAAAAD8/wAAAQAAAAAAAAD8/wEAAQAAAAAAAAAAAAAAAQACAAAAAAAAAP3/AQACAAIAAAAAAP7/AQACAAMAAAAAAP//AQABAAAAAAD//wAAAQABAAAAAAD+/wAAAQAAAAAAAAD+////AQAAAAAAAAD/////AQABAAAAAAD///7/AQABAAMAAAD+//7/AQABAAMAAAD9////AQAAAAAAAAD9/wAAAQAAAAAAAAD9//7/AQAAAAMAAAACAP//AQAAAAAAAAAEAP//AQAAAAAAAAAFAP//AQACAAAAAAAGAP//AQABAAAAAAAHAP//AQAAAAAAAAAIAP//AQAAAAAAAAACAP7/AQAAAAAAAAABAP3/AQAAAAAAAAAFAP7/AQAAAAAAAAAGAP7/AQAAAAAAAAAEAP7/AQAAAAAAAAAEAP3/AQAAAAAAAAAFAP3/AQAAAAAAAAAGAP3/AQAAAAAAAAAHAP3/AQAAAAAAAAAHAP7/AQAAAAAAAAAEAPz/AQAAAAAAAAAFAPz/AQAAAAAAAAAFAPv/AQAAAAAAAAAEAPv/AQABAAAAAAADAPv/AQACAAAAAAADAPz/AQAAAAAAAAAGAPz/AQAAAAAAAAACAPv/AQAAAAAAAAABAPv/AQAAAAAAAAAAAPv/AQAAAAAAAAAAAPr/AQAAAAAAAAD///r/AQACAAAAAAD///v/AQAAAAAAAAD+//v/AQAAAAAAAAD+//z/AQABAAEAAAD9//v/AQAAAAAAAAD8//v/AQAAAAAAAAD7//z/AQAAAAAAAAD6//z/AQAAAAAAAAD6//3/AQAAAAAAAAD6//7/AQABAAAAAAD7//7/AQABAAAAAAD7////AQACAAAAAAD8//z/AQAAAAAAAAD7//3/AQACAAAAAAD9//z/AQAAAAEAAAD6////AQABAAAAAAD7/wAAAQAAAAAAAAD7/wEAAQAAAAAAAAD8/wIAAQAAAAAAAAABAAEAAQAAAAIAAAABAAIAAQAAAAMAAAAEAAAAAQAAAAAAAAAFAAAAAQABAAAAAAAFAAEAAQACAAAAAAAFAAIAAQAAAAAAAAAEAAIAAQAAAAAAAAAEAAMAAQAAAAAAAAAGAAEAAQAAAAAAAAAGAAAAAQACAAAAAAAEAAEAAQABAAAAAAAHAAAAAQAAAAAAAAAHAAEAAQAAAAAAAAAHAAIAAQAAAAAAAAAGAAIAAQAAAAAAAAAFAAMAAQAAAAAAAAD8/wMAAQAAAAAAAAD7/wIAAQAAAAAAAAD6/wEAAQAAAAAAAAD6/wAAAQAAAAAAAAD+//r/AQABAAAAAAD///n/AQABAAAAAAAAAPn/AQAAAAAAAAABAPn/AQAAAAAAAAACAPn/AQABAAAAAAADAPr/AQABAAAAAAACAPr/AQAAAAAAAAABAPr/AQAAAAAAAAADAPn/AQABAAAAAAAEAPn/AQAAAAAAAAAEAPr/AQACAAAAAAABAPj/AQAAAAAAAAABAPf/AQAAAAAAAAAAAPf/AQAAAAAAAAAAAPj/AQACAAAAAAACAPj/AQAAAAAAAAADAPj/AQAAAAAAAAADAPf/AQAAAAAAAAACAPf/AQAAAAAAAAD7//v/AQAAAAAAAAD7//r/AQACAAMAAAD8//r/AQAAAAAAAAD9//n/AQAAAAAAAAD9//j/AQAAAAAAAAD+//j/AQAAAAAAAAD///j/AQABAAAAAAD+//n/AQABAAAAAAD9//r/AQAAAAAAAAD5//7/AQAAAAAAAAD5////AQAAAAAAAAD5/wAAAQAAAAAAAAD5//3/AQAAAAAAAAD4//7/AQAAAAAAAAD4////AQAAAAAAAAABAPb/AQAAAAAAAAACAPb/AQAAAAAAAAD+/wUAAQAAAAAAAAD//wUAAQAAAAAAAAAAAAUAAQAAAAAAAAABAAUAAQAAAAAAAAACAAUAAQAAAAAAAAD//wYAAQAAAAAAAAAAAAYAAQAAAAAAAAABAAYAAQAAAAAAAAAIAAAAAQAAAAAAAAAIAAEAAQAAAAAAAAAIAP7/AQAAAAAAAAAJAP//AQAAAAAAAAAJAAAAAQAAAAAAAAD+//f/AQAAAAAAAAD///f/AQABAAAAAAD///b/AQAAAAAAAAAAAPb/AQAAAAAAAAAEAPj/AQAAAAAAAAAFAPn/AQAAAAAAAAAFAPr/AQAAAAAAAAAGAPv/AQAAAAAAAAAHAPz/AQAAAAAAAAD//wcAAQABAAEAAAAAAAcAAQABAAEAAAABAAcAAQABAAEAAAACAAYAAQAAAAEAAAACAAcAAQACAAQAAAADAAUAAQAAAAEAAAAEAAQAAQAAAAEAAAAGAAMAAQAAAAEAAAAIAAIAAQAAAAEAAAAJAAEAAQAAAAEAAAAKAAAAAQAAAAIAAAAKAP//AQAAAAIAAAAJAAIAAQAAAAUAAAAHAAMAAQABAAQAAAAIAAMAAQACAAQAAAAGAAQAAQACAAQAAAAFAAQAAQABAAQAAAD+/wYAAQACAAEAAAD9/wUAAQACAAEAAAD8/wQAAQACAAEAAAD7/wMAAQACAAEAAAD6/wIAAQACAAEAAAD5/wEAAQACAAEAAAD4/wAAAQACAAEAAAD+/wcAAQAAAAQAAAD9/wYAAQAAAAQAAAD8/wUAAQAAAAQAAAD7/wQAAQAAAAQAAAD6/wMAAQAAAAQAAAD5/wIAAQAAAAQAAAD4/wEAAQAAAAQAAAAEAAUAAQACAAQAAAADAAYAAQACAAQAAAAKAAEAAQACAAQAAAAJAP7/AQAAAAMAAAAIAP3/AQAAAAMAAAAHAPv/AQAAAAMAAAAGAPr/AQAAAAMAAAAFAPj/AQAAAAMAAAAEAPf/AQAAAAMAAAADAPb/AQAAAAMAAAD4//3/AQACAAMAAAD5//z/AQACAAMAAAD6//v/AQACAAMAAAD7//n/AQACAAUAAAD8//n/AQACAAMAAAD9//f/AQACAAMAAAD+//b/AQACAAMAAAD4//z/AQACAAUAAAD5//v/AQACAAUAAAD6//r/AQACAAUAAAD8//f/AQACAAUAAAD9//b/AQACAAUAAAAEAPb/AQADAAUAAAAFAPf/AQADAAUAAAAGAPn/AQAAAAIAAAAGAPj/AQADAAUAAAAHAPr/AQADAAUAAAAIAPv/AQADAAUAAAAJAP3/AQADAAUAAAAKAP7/AQADAAUAAAAIAPz/AQAAAAIAAAD8//j/AQACAAIAAAD3//7/AQACAAIAAAD3////AQACAAIAAAD3/wAAAQABAAUAAAD3//3/AQACAAUAAAD///X/AQABAAMAAAAAAPX/AQABAAMAAAABAPX/AQABAAMAAAACAPX/AQABAAMAAAD+//X/AQACAAUAAAADAPX/AQADAAUAAAABAP7/AQAAAAAAAAABAP//AQABAAAAAAABAAAAAQAAAAEAAAACAAAAAQABAAEAAAADAAEAAQACAAIAAAACAAEAAQABAAIAAAD2//z/AQABAAIAAAD3//z/AQABAAIAAAD3//v/AQABAAIAAAD4//v/AQABAAIAAAD4//r/AQABAAIAAAD5//r/AQABAAIAAAD5//n/AQABAAIAAAD6//j/AQABAAIAAAD7//f/AQABAAIAAAD7//b/AQABAAIAAAD8//b/AQABAAIAAAD8//X/AQABAAIAAAD9//X/AQABAAIAAAD6//n/AQABAAIAAAD7//j/AQABAAIAAAD7//X/AQABAAIAAAD6//X/AQABAAIAAAD6//b/AQABAAIAAAD5//b/AQABAAIAAAD5//f/AQABAAIAAAD5//j/AQABAAIAAAD4//j/AQABAAIAAAD4//n/AQABAAIAAAD3//n/AQABAAIAAAD3//r/AQABAAIAAAD2//v/AQABAAIAAAD6//f/AQABAAIAAAD5//X/AQABAAIAAAD4//X/AQABAAIAAAD3//X/AQABAAIAAAD2//X/AQABAAIAAAD2//b/AQABAAIAAAD2//f/AQABAAIAAAD2//j/AQABAAIAAAD2//n/AQABAAIAAAD2//r/AQABAAIAAAD3//j/AQABAAIAAAD3//f/AQABAAIAAAD3//b/AQABAAIAAAD4//b/AQABAAIAAAD4//f/AQABAAIAAAD2//3/AQABAAIAAAD2//7/AQABAAIAAAD2////AQABAAIAAAD2/wAAAQABAAIAAAD2/wEAAQABAAIAAAD2/wIAAQABAAIAAAD3/wEAAQABAAIAAAD3/wIAAQABAAIAAAD4/wIAAQABAAIAAAD4/wMAAQABAAIAAAD5/wMAAQABAAIAAAD5/wQAAQABAAIAAAD6/wQAAQABAAIAAAD6/wUAAQABAAIAAAD7/wUAAQABAAIAAAD7/wYAAQABAAIAAAD8/wYAAQABAAIAAAD8/wcAAQABAAIAAAD9/wcAAQABAAIAAAD7/wcAAQABAAIAAAD6/wcAAQABAAIAAAD5/wcAAQABAAIAAAD4/wcAAQABAAIAAAD3/wcAAQABAAIAAAD2/wcAAQABAAIAAAD2/wYAAQABAAIAAAD2/wUAAQABAAIAAAD2/wQAAQABAAIAAAD2/wMAAQABAAIAAAD3/wMAAQABAAIAAAD3/wQAAQABAAIAAAD3/wUAAQABAAIAAAD3/wYAAQABAAIAAAD4/wYAAQABAAIAAAD4/wUAAQABAAIAAAD4/wQAAQABAAIAAAD5/wUAAQABAAIAAAD5/wYAAQABAAIAAAD6/wYAAQABAAIAAAADAAcAAQABAAIAAAAEAAcAAQABAAIAAAAEAAYAAQABAAIAAAAFAAYAAQABAAIAAAAFAAUAAQABAAIAAAAGAAUAAQABAAIAAAAHAAUAAQABAAIAAAAHAAQAAQABAAIAAAAIAAQAAQABAAIAAAAJAAQAAQABAAIAAAAJAAMAAQABAAIAAAAKAAMAAQABAAIAAAAKAAIAAQABAAIAAAAKAAQAAQABAAIAAAAKAAUAAQABAAIAAAAKAAYAAQABAAIAAAAKAAcAAQABAAIAAAAJAAcAAQABAAIAAAAIAAcAAQABAAIAAAAHAAcAAQABAAIAAAAGAAcAAQABAAIAAAAFAAcAAQABAAIAAAAGAAYAAQABAAIAAAAHAAYAAQABAAIAAAAIAAYAAQABAAIAAAAJAAYAAQABAAIAAAAJAAUAAQABAAIAAAAIAAUAAQABAAIAAAAEAPX/AQABAAIAAAAFAPX/AQABAAIAAAAGAPX/AQABAAIAAAAHAPX/AQABAAIAAAAIAPX/AQABAAIAAAAJAPX/AQABAAIAAAAKAPX/AQABAAIAAAAKAPb/AQABAAIAAAAKAPf/AQABAAIAAAAKAPj/AQABAAIAAAAKAPn/AQABAAIAAAAKAPr/AQABAAIAAAAKAPv/AQABAAIAAAAKAPz/AQABAAIAAAAKAP3/AQABAAIAAAAJAPz/AQABAAIAAAAJAPv/AQABAAIAAAAJAPr/AQABAAIAAAAJAPn/AQABAAIAAAAJAPj/AQABAAIAAAAJAPf/AQABAAIAAAAJAPb/AQABAAIAAAAFAPb/AQABAAIAAAAGAPb/AQABAAIAAAAHAPb/AQABAAIAAAAIAPb/AQABAAIAAAAGAPf/AQABAAIAAAAHAPf/AQABAAIAAAAIAPf/AQABAAIAAAAHAPj/AQABAAIAAAAHAPn/AQABAAIAAAAIAPn/AQABAAIAAAAIAPj/AQABAAIAAAAIAPr/AQABAAIAAAALAPX/AQABAAIAAAALAPb/AQABAAIAAAALAPf/AQABAAIAAAALAPj/AQABAAIAAAALAPn/AQABAAIAAAALAPr/AQABAAIAAAALAPv/AQABAAIAAAALAPz/AQABAAIAAAALAP3/AQABAAIAAAALAP7/AQABAAIAAAALAP//AQABAAIAAAALAAAAAQABAAIAAAALAAEAAQABAAIAAAALAAIAAQABAAIAAAALAAMAAQABAAIAAAALAAQAAQABAAIAAAALAAUAAQABAAIAAAALAAYAAQABAAIAAAALAAcAAQABAAIAAAA=")
@@ -703,20 +576,11 @@ tile_set = SubResource("TileSet_fnvmy")
 [node name="UI Layer" type="TileMapLayer" parent="."]
 tile_set = SubResource("TileSet_fnvmy")
 
-[node name="Cursor" parent="UI Layer" node_paths=PackedStringArray("Map", "UILayer", "UnitLayer", "Camera") instance=ExtResource("6_7mu4y")]
+[node name="Cursor" parent="UI Layer" node_paths=PackedStringArray("Map", "UILayer", "Camera") instance=ExtResource("6_7mu4y")]
+position = Vector2(0, 0)
 Map = NodePath("../..")
 UILayer = NodePath("..")
-UnitLayer = NodePath("../../Unit Layer")
 Camera = NodePath("../../FramedCamera")
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-visible = false
-
-[node name="InfoBlock" parent="CanvasLayer" instance=ExtResource("10_g5u88")]
-offset_left = 36.0
-offset_top = 448.0
-offset_right = -637.0
-offset_bottom = -51.0
 
 [node name="FramedCamera" type="Camera2D" parent="." node_paths=PackedStringArray("FollowTarget", "UILayer")]
 zoom = Vector2(4, 4)

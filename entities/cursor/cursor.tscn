@@ -1,6 +1,160 @@
-[gd_scene load_steps=2 format=3 uid="uid://c4f1ndq22jren"]
+[gd_scene load_steps=13 format=3 uid="uid://c4f1ndq22jren"]
 
 [ext_resource type="Script" path="res://entities/cursor/cursor.gd" id="1_leum8"]
+[ext_resource type="Texture2D" uid="uid://c86kuskv40u82" path="res://common/map/assets/ui.png" id="2_75xgq"]
 
-[node name="Cursor" type="Node2D"]
+[sub_resource type="Animation" id="Animation_mst1w"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_jrhg2"]
+resource_name = "idle"
+length = 0.5
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/path = NodePath("..:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.133333, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.2, 1.2)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.133333, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="Animation" id="Animation_ud6p6"]
+resource_name = "moving"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0333333),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("..:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0xtqo"]
+_data = {
+"RESET": SubResource("Animation_mst1w"),
+"idle": SubResource("Animation_jrhg2"),
+"moving": SubResource("Animation_ud6p6")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_34sen"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_e185w"]
+animation = &"moving"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_k2xcl"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ekp82"]
+advance_mode = 2
+advance_condition = &"in_motion"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_dytq3"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"idle"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_8pxwp"]
+states/Start/position = Vector2(200, 118)
+states/idle/node = SubResource("AnimationNodeAnimation_34sen")
+states/idle/position = Vector2(494, 51)
+states/moving/node = SubResource("AnimationNodeAnimation_e185w")
+states/moving/position = Vector2(432, 178)
+transitions = ["Start", "idle", SubResource("AnimationNodeStateMachineTransition_k2xcl"), "idle", "moving", SubResource("AnimationNodeStateMachineTransition_ekp82"), "moving", "idle", SubResource("AnimationNodeStateMachineTransition_dytq3")]
+
+[node name="Cursor" type="Node2D" node_paths=PackedStringArray("Player")]
 script = ExtResource("1_leum8")
+Player = NodePath("AnimationPlayer")
+MOVEMENT_SPEED = 200.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_75xgq")
+hframes = 18
+vframes = 11
+frame = 39
+region_rect = Rect2(16, 0, 16, 16)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Sprite2D")
+libraries = {
+"": SubResource("AnimationLibrary_0xtqo")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+root_node = NodePath("../Sprite2D")
+tree_root = SubResource("AnimationNodeStateMachine_8pxwp")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/idle = false
+parameters/conditions/in_motion = false
+
+[node name="Node2D" type="Node2D" parent="."]

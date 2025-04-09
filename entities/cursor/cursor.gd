@@ -9,7 +9,9 @@ class_name Cursor
 @export_group("Dependencies")
 @export var Map: BattleMap
 @export var UILayer: TileMapLayer
+@export var UnitLayer: TileMapLayer
 @export var Camera: Camera2D
+@export var Player: AnimationPlayer
 
 @export_group("Attributes")
 @export var CURSOR_DEADZONE: float = 0.25
@@ -18,6 +20,12 @@ class_name Cursor
 @export var CURSOR_SOURCE_ID: int = 1
 
 @onready var TILE_SIZE: Vector2 = UILayer.tile_set.tile_size
+
+class Selection:
+	var position: Vector2i = Vector2.ZERO
+	var is_selected: bool = false
+
+var selection: Selection = Selection.new()
 
 func handle_input(delta: float) -> void:
 	var direction = Input.get_vector("Cursor_Left", "Cursor_Right", "Cursor_Up", "Cursor_Down", CURSOR_DEADZONE)
@@ -30,22 +38,63 @@ func handle_input(delta: float) -> void:
 			Vector2(Camera.limit_right - TILE_SIZE.x, Camera.limit_bottom - TILE_SIZE.y)
 		)
 		Camera._move_deadzone_with_follow_target()
+		$AnimationTree.set("parameters/conditions/idle", false);
+		$AnimationTree.set("parameters/conditions/in_motion", true);
+	else:
+		$AnimationTree.set("parameters/conditions/in_motion", false);
+		$AnimationTree.set("parameters/conditions/idle", true);
 
 	if Input.is_action_pressed("Move_To_Map_Center"):
 		position = Vector2.ZERO
 		Camera._move_deadzone_with_follow_target()
 		Camera.position = UILayer.map_to_local(UILayer.local_to_map(position)) - TILE_SIZE / 2
 
+	if Input.is_action_pressed("Confirm"):
+		if Map.get_unit_type_at(position) != Map.UnitType.NULL:
+			for v in generate_movement_square(selection.position, 3):
+				UILayer.set_cell(UILayer.local_to_map(v), -1, Vector2i(-1, -1))
+			selection.position = UILayer.map_to_local(UILayer.local_to_map(position))
+			selection.is_selected = true
+		elif selection.is_selected:
+			var pos = UILayer.map_to_local(UILayer.local_to_map(position))
+			for v in generate_movement_square(selection.position, 3):
+				if v.x == pos.x and v.y == pos.y:
+					UnitLayer.set_cell(UnitLayer.local_to_map(v), 1, UnitLayer.get_cell_atlas_coords(UnitLayer.local_to_map(selection.position)))
+					UnitLayer.set_cell(UnitLayer.local_to_map(selection.position), -1, Vector2i(-1, -1))
+					selection.is_selected = false
+				UILayer.set_cell(UILayer.local_to_map(v), -1, Vector2i(-1, -1))
+	
+	if Input.is_action_pressed("Cancel"):
+		selection.is_selected = false
+
+func generate_movement_square(center: Vector2i, size: int) -> Array[Vector2i]:
+	var arr: Array[Vector2i] = []
+	for dx in range(-size, size + 1):
+		for dy in range(-size + abs(dx), size - abs(dx) + 1):
+			arr.append(center + Vector2i(dx * TILE_SIZE.x, dy * TILE_SIZE.y))
+	return arr
 
 func _ready() -> void:
 	# Start out with an integer multiple of tile size to prevent bugs.
-	position = position.snapped(TILE_SIZE)
+	#$Sprite2D.global_position = $Sprite2D.global_position.snapped(TILE_SIZE / 2)
+	Player.play("idle")
 
 func _process(delta: float) -> void:
-	# Unset the cell at that position before calculating new position and resetting it.
-	# TODO: Instead of having a UI Layer simply make the UI part of the cell element.
-	# maybe via scene collections.
-	UILayer.set_cell(UILayer.local_to_map(position), CURSOR_SOURCE_ID)
+	$Sprite2D.global_position = UILayer.map_to_local(UILayer.local_to_map(global_position))
 	handle_input(delta)
-	UILayer.set_cell(UILayer.local_to_map(position), CURSOR_SOURCE_ID, CURSOR_COORD)
-	print(Map.get_terrain_type_at(position))
+ # https://forum.godotengine.org/t/how-do-you-use-autotiling-in-code-in-godot-4/1587/2
+	if selection.is_selected:
+		for v in generate_movement_square(selection.position, 3):
+			var terrain: Resource = Map.get_terrain_data_at(v)
+			var unit_type = Map.get_unit_type_at(selection.position)
+			if unit_type != - 1 and terrain.movement[unit_type] != -1:
+				UILayer.set_cell(UILayer.local_to_map(v), 1, Vector2i(3, 3))
+	else:
+		for v in generate_movement_square(selection.position, 3):
+			var terrain: Resource = Map.get_terrain_data_at(v)
+			var unit_type = Map.get_unit_type_at(selection.position)
+			if unit_type != - 1 and terrain.movement[unit_type] != -1:
+				UILayer.set_cell(UILayer.local_to_map(v), -1, Vector2i(-1, -1))
+
+	#var res: Resource = Map.get_terrain_data_at(position)
+	#print(res)
