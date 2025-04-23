@@ -18,6 +18,7 @@ class_name BattleMap
 @export var TerrainFGLayer: TileMapLayer
 @export var BuildingLayer: TileMapLayer
 @export var UnitLayer: TileMapLayer
+@export var AttributeLayer: TileMapLayer
 @export var UILayer: TileMapLayer
 
 # NOTE: Terrains that can only be specified via the Foreground or above must always
