@@ -22,6 +22,8 @@ class_name Cursor
 
 @onready var TILE_SIZE: Vector2 = UILayer.tile_set.tile_size
 
+var astar: AStarGrid2D
+
 class Selection:
 	var position: Vector2i = Vector2.ZERO
 	var is_selected: bool = false
@@ -34,32 +36,44 @@ func handle_input(delta: float) -> void:
 	var target_position = position + Vector2(direction.x * TILE_SIZE.x, direction.y * TILE_SIZE.y)
 
 	if position != target_position:
-		position = position.move_toward(target_position, delta * MOVEMENT_SPEED)
-		position = position.clamp(
-			Vector2(Camera.limit_left, Camera.limit_top),
-			Vector2(Camera.limit_right - TILE_SIZE.x, Camera.limit_bottom - TILE_SIZE.y)
-		)
-		Camera._move_deadzone_with_follow_target()
-		$AnimationTree.set("parameters/conditions/idle", false);
-		$AnimationTree.set("parameters/conditions/in_motion", true);
+		if not selection.is_selected:
+			position = position.move_toward(target_position, delta * MOVEMENT_SPEED)
+			position = position.clamp(
+				Vector2(Camera.limit_left, Camera.limit_top),
+				Vector2(Camera.limit_right - TILE_SIZE.x, Camera.limit_bottom - TILE_SIZE.y)
+			)
+			Camera._move_deadzone_with_follow_target()
+			$AnimationTree.set("parameters/conditions/idle", false);
+			$AnimationTree.set("parameters/conditions/in_motion", true);
+		elif Vector2i(UILayer.map_to_local(UILayer.local_to_map(target_position))) in generate_unit_square(selection.position):
+			position = position.move_toward(target_position, delta * MOVEMENT_SPEED)
+			position = position.clamp(
+				Vector2(Camera.limit_left, Camera.limit_top),
+				Vector2(Camera.limit_right - TILE_SIZE.x, Camera.limit_bottom - TILE_SIZE.y)
+			)
+			Camera._move_deadzone_with_follow_target()
+			$AnimationTree.set("parameters/conditions/idle", false);
+			$AnimationTree.set("parameters/conditions/in_motion", true);
+
 	else:
 		$AnimationTree.set("parameters/conditions/in_motion", false);
 		$AnimationTree.set("parameters/conditions/idle", true);
 
 	if selection.is_selected:
-		var current_tile = path.back()
-		var target_tile = current_tile + Vector2i(direction.x, direction.y)
-		var target_snapped = UILayer.map_to_local(target_tile)
-		var dist = global_position.distance_to(target_snapped)
-		if dist <= 10 and current_tile != target_tile:
-			if path.has(target_tile):
-				path.pop_back()
-			elif generate_unit_square(selection.position).has(Vector2i(UILayer.map_to_local(UILayer.local_to_map(position)))):
-				path.append(target_tile)
-		
-		print(path)
+		var origin_tile = Vector2((selection.position.x - 8) / TILE_SIZE.x, (selection.position.y - 8) / TILE_SIZE.y)
+		var current_tile = Vector2((UILayer.map_to_local(UILayer.local_to_map(position)).x - 8) / TILE_SIZE.x, (UILayer.map_to_local(UILayer.local_to_map(position)).y - 8)/TILE_SIZE.y)
+		path = Array(astar.get_point_path(origin_tile, current_tile))
+		# necessary to prevent path from displaying outside mvoement square
+		# BUG: it prevents display of that path, but doesn't fix it, so path looks broken
+		var area = generate_unit_square(selection.position)
+		path = path.filter(func(p):
+			return area.has(Vector2i(p.x + 8, p.y + 8))
+			)
+		for i in range(path.size()):
+			path[i] = path[i] / TILE_SIZE.x;
 		ArrowLayer.clear()
 		ArrowLayer.set_cells_terrain_path(path, 0, 0)
+		ArrowLayer.set_cell(path[0], 1, Vector2i(4, 1))
 
 	if Input.is_action_pressed("Move_To_Map_Center"):
 		position = Vector2.ZERO
@@ -67,12 +81,11 @@ func handle_input(delta: float) -> void:
 		Camera.position = UILayer.map_to_local(UILayer.local_to_map(position)) - TILE_SIZE / 2
 
 	if Input.is_action_just_pressed("Confirm"):
-		if Map.get_unit_type_at(position) != Map.UnitType.NULL:
+		if Map.get_unit_type_at(position) != Enums.Unit.Type.Null:
 			for v in generate_movement_square(selection.position, 3):
 				UILayer.set_cell(UILayer.local_to_map(v), -1, Vector2i(-1, -1))
 			selection.position = UILayer.map_to_local(UILayer.local_to_map(position))
 			selection.is_selected = true
-			path = [ArrowLayer.local_to_map(position)]
 		elif selection.is_selected:
 			var pos = UILayer.map_to_local(UILayer.local_to_map(position))
 			for v in generate_movement_square(selection.position, 3):
@@ -111,6 +124,11 @@ func _ready() -> void:
 	# Start out with an integer multiple of tile size to prevent bugs.
 	#$Sprite2D.global_position = $Sprite2D.global_position.snapped(TILE_SIZE / 2)
 	Player.play("idle")
+	astar = AStarGrid2D.new()
+	astar.region = Rect2i(-2048, -2048, 4096, 4096)
+	astar.cell_size = TILE_SIZE
+	astar.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_NEVER
+	astar.update()
 	
 
 func _process(delta: float) -> void:
@@ -131,6 +149,3 @@ func _process(delta: float) -> void:
 			var unit_type = Map.get_unit_type_at(selection.position)
 			if unit_type != - 1 and terrain.movement[unit_type] != -1:
 				UILayer.set_cell(UILayer.local_to_map(v), -1, Vector2i(-1, -1))
-
-	#var res: Resource = Map.get_terrain_data_at(position)
-	#print(res)
