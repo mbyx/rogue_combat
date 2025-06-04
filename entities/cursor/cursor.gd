@@ -62,18 +62,22 @@ func handle_input(delta: float) -> void:
 	if selection.is_selected:
 		var origin_tile = Vector2((selection.position.x - 8) / TILE_SIZE.x, (selection.position.y - 8) / TILE_SIZE.y)
 		var current_tile = Vector2((UILayer.map_to_local(UILayer.local_to_map(position)).x - 8) / TILE_SIZE.x, (UILayer.map_to_local(UILayer.local_to_map(position)).y - 8)/TILE_SIZE.y)
-		path = Array(astar.get_point_path(origin_tile, current_tile))
 		# necessary to prevent path from displaying outside mvoement square
 		# BUG: it prevents display of that path, but doesn't fix it, so path looks broken
-		var area = generate_unit_square(selection.position)
-		path = path.filter(func(p):
-			return area.has(Vector2i(p.x + 8, p.y + 8))
-			)
+		var area := generate_unit_square(selection.position)
+		
+		astar.set_point_solid(origin_tile, false)
+		astar.set_point_solid(current_tile, false)
+
+		for square in area:
+			astar.set_point_solid(Vector2i(square.x - 8, square.y - 8) / TILE_SIZE.x, false)
+		path = Array(astar.get_point_path(origin_tile, current_tile))
+		
 		for i in range(path.size()):
 			path[i] = path[i] / TILE_SIZE.x;
 		ArrowLayer.clear()
 		ArrowLayer.set_cells_terrain_path(path, 0, 0)
-		ArrowLayer.set_cell(path[0], 1, Vector2i(4, 1))
+		#ArrowLayer.set_cell(path[0], 1, Vector2i(4, 1))
 
 	if Input.is_action_pressed("Move_To_Map_Center"):
 		position = Vector2.ZERO
@@ -129,6 +133,7 @@ func _ready() -> void:
 	astar.cell_size = TILE_SIZE
 	astar.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_NEVER
 	astar.update()
+	astar.fill_solid_region(astar.region, true)
 	
 
 func _process(delta: float) -> void:
